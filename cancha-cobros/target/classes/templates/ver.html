@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Estado de pagos')}">
+</head>
+<body>
+<!-- Solo lectura: se refresca sola cada 20 s para ver los pagos que va marcando el cobrador -->
+<script>setTimeout(() => location.reload(), 20000);</script>
+<main class="container">
+    <header class="card">
+        <h1 th:text="${partido.cancha() != null ? partido.cancha() : 'Partido'}">Partido</h1>
+        <p class="muted" th:text="${partido.fecha()}">2026-01-01</p>
+        <p>Cancha: <strong th:text="${@fmt.soles(partido.costoTotal())}">S/ 40.00</strong>
+            <span th:if="${partido.cuota() != null}"> · Cuota por persona: <strong th:text="${@fmt.soles(partido.cuota())}">S/ 2.50</strong></span>
+            <span class="badge" th:text="${partido.estado()}" th:classappend="${partido.estado()}">LISTA</span>
+        </p>
+    </header>
+
+    <!-- Aún se está tomando asistencia -->
+    <section th:if="${partido.estado() == 'LISTA'}">
+        <p class="muted">Se está tomando la asistencia. Presentes hasta ahora: <strong th:text="${resumen.presentes()}">0</strong></p>
+        <ul class="lista">
+            <li th:each="f : ${presentesLista}" class="item"><span th:text="${f.nombre()}">Nombre</span></li>
+        </ul>
+    </section>
+
+    <!-- Cobro en curso o terminado -->
+    <section th:if="${partido.estado() != 'LISTA'}">
+        <div class="card resumen">
+            <div class="progress"><div class="progress-bar" th:style="'width:' + ${resumen.porcentaje()} + '%'"></div></div>
+            <div class="grid3">
+                <div><span class="muted">Cobrado</span><strong th:text="${@fmt.soles(resumen.cobrado())}">S/ 0.00</strong></div>
+                <div><span class="muted">Esperado</span><strong th:text="${@fmt.soles(resumen.esperado())}">S/ 0.00</strong></div>
+                <div><span class="muted">Faltan</span><strong th:text="${resumen.pendientes()}">0</strong></div>
+            </div>
+        </div>
+
+        <h2>Faltan por pagar</h2>
+        <p th:if="${#lists.isEmpty(pendientes)}" class="muted">¡Todos pagaron! 🎉</p>
+        <ul class="lista">
+            <li th:each="f : ${pendientes}" class="item pendiente"><span th:text="${f.nombre()}">Nombre</span></li>
+        </ul>
+
+        <h2>Ya pagaron</h2>
+        <ul class="lista">
+            <li th:each="f : ${pagados}" class="item ok"><span th:text="${f.nombre()}">Nombre</span><span>✓</span></li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

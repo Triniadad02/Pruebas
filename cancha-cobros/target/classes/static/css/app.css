@@ -1,0 +1,65 @@
+/* Estilos mobile-first: botones grandes porque se usa de pie en la cancha, con una sola mano. */
+:root { --verde:#16a34a; --verde-claro:#dcfce7; --rojo:#dc2626; --rojo-claro:#fee2e2;
+        --gris:#6b7280; --fondo:#f3f4f6; --borde:#e5e7eb; --wa:#25d366; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--fondo); color:#111827; }
+.container { max-width:560px; margin:0 auto; padding:12px 12px 100px; }
+h1 { font-size:1.35rem; margin:0 0 4px; }
+h2 { font-size:1.05rem; margin:18px 0 8px; }
+a { color:#2563eb; }
+.back { display:inline-block; margin-bottom:6px; text-decoration:none; }
+.muted { color:var(--gris); }
+
+.card { background:#fff; border:1px solid var(--borde); border-radius:12px; padding:14px; margin:12px 0; }
+.card h2 { margin-top:0; }
+.sticky { position:sticky; top:0; z-index:5; display:flex; justify-content:space-between; font-size:1.05rem; }
+
+label { display:block; font-size:.85rem; color:var(--gris); margin-bottom:10px; }
+input[type=text], input[type=number], input[type=date], input[type=password] {
+  width:100%; padding:12px; font-size:1rem; border:1px solid #d1d5db; border-radius:10px; margin-top:4px; background:#fff; }
+.row { display:flex; gap:10px; align-items:center; }
+.row > * { flex:1; margin-bottom:0; }
+.row input { margin-top:0; }
+
+.btn { display:inline-block; padding:12px 14px; font-size:1rem; border:1px solid #d1d5db; border-radius:10px;
+       background:#fff; color:#111827; text-align:center; text-decoration:none; cursor:pointer; }
+.btn-primary { background:var(--verde); border-color:var(--verde); color:#fff; font-weight:600; }
+.btn-big { width:100%; padding:16px; font-size:1.1rem; }
+.btn-small { padding:8px 12px; font-size:.9rem; }
+.btn-wa { background:var(--wa); border-color:var(--wa); color:#063; font-weight:600; width:100%; margin-top:6px; }
+.row .btn-wa { margin-top:0; width:auto; }
+
+.alert { background:var(--rojo-claro); color:#991b1b; padding:12px; border-radius:10px; }
+.badge { font-size:.7rem; padding:3px 8px; border-radius:99px; background:#e5e7eb; vertical-align:middle; margin-left:4px; }
+.badge.LISTA { background:#dbeafe; color:#1e40af; }
+.badge.COBRANDO { background:#fef3c7; color:#92400e; }
+.badge.CERRADO { background:var(--verde-claro); color:#166534; }
+
+.lista { list-style:none; padding:0; margin:0; }
+.item { display:flex; justify-content:space-between; align-items:center; gap:10px;
+        background:#fff; border:1px solid var(--borde); border-radius:10px; padding:12px; margin-bottom:8px; }
+.item.ok { background:var(--verde-claro); }
+.item.pendiente { background:var(--rojo-claro); }
+
+/* Fila grande y tocable: un toque = marcar */
+.fila { display:flex; align-items:center; gap:12px; width:100%; padding:16px; margin-bottom:8px; font-size:1.1rem;
+        text-align:left; background:#fff; border:2px solid var(--borde); border-radius:12px; cursor:pointer; }
+.fila:disabled { opacity:.7; cursor:default; }
+.check { width:24px; height:24px; border:2px solid #9ca3af; border-radius:50%; flex:none; }
+.fila.on { background:var(--verde-claro); border-color:var(--verde); }
+.fila.on .check { background:var(--verde); border-color:var(--verde); box-shadow: inset 0 0 0 4px #fff; }
+
+.fila.pago { justify-content:space-between; }
+.fila.pago .accion { background:var(--rojo-claro); color:#991b1b; padding:6px 12px; border-radius:99px; font-size:.9rem; font-weight:600; }
+.fila.pago.pagado { background:var(--verde-claro); border-color:var(--verde); }
+.fila.pago.pagado .accion { background:var(--verde); color:#fff; }
+
+.progress { height:12px; background:#e5e7eb; border-radius:99px; overflow:hidden; margin-bottom:12px; }
+.progress-bar { height:100%; background:var(--verde); transition:width .3s; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center; }
+.grid3 span { display:block; font-size:.8rem; }
+.grid3 strong { font-size:1.1rem; }
+
+.acciones form { margin-top:12px; }
+.bottom-bar { position:fixed; left:0; right:0; bottom:0; padding:10px 12px; background:#fff; border-top:1px solid var(--borde); }
+.bottom-bar .btn { display:block; max-width:536px; margin:0 auto; }

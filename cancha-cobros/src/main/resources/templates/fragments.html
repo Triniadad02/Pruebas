@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Fragmento reutilizable: el <head> común. Se incluye con th:replace="~{fragments :: head('Título')}" -->
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo}">Cobros</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body></body>
+</html>

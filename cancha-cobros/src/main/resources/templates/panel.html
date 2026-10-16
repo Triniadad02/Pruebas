@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Cobros de cancha')}"></head>
+<body>
+<main class="container">
+    <h1>⚽ Cobros de cancha</h1>
+    <p th:if="${error}" class="alert" th:text="${error}"></p>
+
+    <section class="card">
+        <h2>Nuevo partido</h2>
+        <form th:action="@{/partidos}" method="post">
+            <label>Fecha
+                <input type="date" name="fecha" th:value="${hoy}" required>
+            </label>
+            <label>Cancha (opcional)
+                <input type="text" name="cancha" maxlength="100" placeholder="Ej. Cancha Los Pinos">
+            </label>
+            <div class="row">
+                <label>Precio por hora (S/)
+                    <input type="number" name="precioHora" value="20" min="0.5" step="0.5" inputmode="decimal" required>
+                </label>
+                <label>Horas
+                    <input type="number" name="horas" value="2" min="0.5" step="0.5" inputmode="decimal" required>
+                </label>
+            </div>
+            <button class="btn btn-primary btn-big" type="submit">Crear partido</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Partidos recientes</h2>
+        <p th:if="${#lists.isEmpty(partidos)}" class="muted">Todavía no hay partidos.</p>
+        <ul class="lista">
+            <li th:each="p : ${partidos}" class="item">
+                <div>
+                    <strong th:text="${p.fecha()}">2026-01-01</strong>
+                    <span th:if="${p.cancha() != null}" th:text="${p.cancha()}"></span>
+                    <span class="badge" th:text="${p.estado()}" th:classappend="${p.estado()}">LISTA</span>
+                </div>
+                <div class="row">
+                    <a class="btn btn-small" th:href="@{/e/{t}(t=${p.tokenEditar()})}">Abrir</a>
+                    <button type="button" class="btn btn-small btn-wa js-compartir" th:data-token="${p.tokenVer()}">WhatsApp</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <p><a th:href="@{/jugadores}">👥 Gestionar jugadores</a></p>
+</main>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Ingresar')}"></head>
+<body>
+<main class="container">
+    <section class="card">
+        <h1>⚽ Cobros de cancha</h1>
+        <p class="muted">Ingresa el PIN del cobrador.</p>
+        <p th:if="${error}" class="alert" th:text="${error}"></p>
+        <form th:action="@{/admin}" method="post">
+            <label>PIN
+                <input type="password" name="pin" inputmode="numeric" autocomplete="current-password" required autofocus>
+            </label>
+            <button class="btn btn-primary btn-big" type="submit">Entrar</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

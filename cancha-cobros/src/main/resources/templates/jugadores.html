@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Jugadores')}"></head>
+<body>
+<main class="container">
+    <a class="back" th:href="@{/}">← Panel</a>
+    <h1>👥 Jugadores</h1>
+    <p th:if="${error}" class="alert" th:text="${error}"></p>
+
+    <section class="card">
+        <h2>Agregar jugador</h2>
+        <form th:action="@{/jugadores}" method="post" class="row">
+            <input type="text" name="nombre" maxlength="100" placeholder="Nombre" required>
+            <button class="btn btn-primary" type="submit">Agregar</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Lista fija</h2>
+        <p class="muted">Los desactivados no aparecen al marcar asistencia, pero conservan su historial.</p>
+        <ul class="lista">
+            <li th:each="j : ${jugadores}" class="item">
+                <span th:text="${j.nombre()}" th:classappend="${!j.activo()} ? 'muted'">Nombre</span>
+                <form th:action="@{/jugadores/{id}/activo(id=${j.id()})}" method="post">
+                    <button class="btn btn-small" type="submit" th:text="${j.activo()} ? 'Desactivar' : 'Activar'">Desactivar</button>
+                </form>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>
